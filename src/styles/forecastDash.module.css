@@ -86,11 +86,9 @@
     width: 10em;
     margin-left: 1em;
     margin-right: 1em;
-    background-color: aqua;
 }
 
 .surplus {
-    background-color: aqua;
     margin: 2em;
     margin: 5em;
     flex-wrap: wrap;
