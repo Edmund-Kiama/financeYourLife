@@ -21,10 +21,12 @@ const NavBar = () => {
             {openDrawer && (
                 <div className={openDrawer ? styles.drawer : ""}>
                 <div className={styles.drawerHeader}>
-                    <button 
+                    <img 
+                        src="https://cdn-icons-png.flaticon.com/128/3416/3416079.png" 
+                        alt="close" 
                         className={styles.close}
                         onClick={() => setOpenDrawer(false)}
-                    >X</button>
+                        />
                 </div>
 
                 <div className={styles.drawerLinks}>

@@ -81,11 +81,12 @@ export default function ForecastDash() {
                     <div className={styles.popup}>
                         <div className={styles.popupHeader}>
                             <h2>January</h2>
-                            <button 
-                                onClick={() => setShowPopUp(false)}
+                            <img 
+                                src="https://cdn-icons-png.flaticon.com/128/3416/3416079.png" 
+                                alt="close" 
                                 className={styles.close}
-                                >X
-                            </button>
+                                onClick={() => setShowPopUp(false)}
+                                />
                         </div>
                         <div className={styles.popupDetails}>
                             <div className={styles.popupSubDetails}>

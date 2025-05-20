@@ -50,6 +50,7 @@
 
 .close {
     cursor: pointer;
+    height: 25px;
 }
 
 .container {
