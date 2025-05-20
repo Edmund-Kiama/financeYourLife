@@ -12,7 +12,7 @@ const NavBar = () => {
                     <h1>Finance Your Life</h1>
                 </div>
                 <img 
-                    src="https://www.flaticon.com/free-icon/lines_15641347" 
+                    src="https://cdn-icons-png.flaticon.com/128/14026/14026516.png" 
                     className={styles.icon} 
                     onClick={() => setOpenDrawer(true)}
                 />
