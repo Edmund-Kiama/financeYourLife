@@ -48,6 +48,10 @@
     justify-content: center;
 }
 
+.close {
+    cursor: pointer;
+}
+
 .container {
     display: flex;
     align-items: center;
@@ -124,6 +128,12 @@
     width: 4em;
     text-align: center;
     margin: 1em;
+    transition: 0.3s ease;
+    cursor: pointer;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.months:hover {
+    background-color: rgb(230, 230, 230);
 }

@@ -81,7 +81,9 @@ export default function ForecastDash() {
                     <div className={styles.popup}>
                         <div className={styles.popupHeader}>
                             <h2>January</h2>
-                            <button onClick={() => setShowPopUp(false)}
+                            <button 
+                                onClick={() => setShowPopUp(false)}
+                                className={styles.close}
                                 >X
                             </button>
                         </div>

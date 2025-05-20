@@ -24,8 +24,63 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.iconLogo {
+    height: 30px;
+    padding-left: 2em;
+    padding-right: 2em;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
 .icon {
     height: 30px;
     padding-left: 2em;
     padding-right: 2em;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
+
+.icon:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+.drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    /* right: -300px;  */
+    width: 250px;
+    /* height: 100%; */
+    background: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+    transition: right 0.3s ease;
+    z-index: 999;
+    padding: 20px;
+}
+
+.drawerHeader {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
+.drawerLinks {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.drawerDetails {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 1em;
+    padding-left: 2em;
+    transition: 0.3em ease;
+    cursor: pointer;
+}
+
+.drawerDetails:hover {
+    background-color: rgb(230, 230, 230);
+}
+
