@@ -1,3 +1,53 @@
+.contentBlur {
+    filter: blur(4px);
+    pointer-events: none;
+}
+
+.popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.popup {
+    background: white;
+    border-radius: 8px;
+    width: 20vw;
+    height: 15vw;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.popupHeader, .popupDetails {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.popupDetails {
+    flex-direction: column;
+}
+
+.popupSubDetails,
+.popupMiniDetails {
+    display: flex;
+    width: 100%;
+    gap: 1em;
+}
+
+.popupSubDetails{
+    align-items: center;
+    justify-content: center;
+}
+
 .container {
     display: flex;
     align-items: center;
@@ -25,6 +75,9 @@
 .mainCurrent ,
 .target{
     border-right: 1px solid rgba(0, 0, 0, 0.3) ;
+}
+.mainCurrent {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .current {
