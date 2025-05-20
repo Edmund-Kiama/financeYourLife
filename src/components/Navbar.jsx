@@ -8,11 +8,11 @@ const NavBar = () => {
         <>
             <nav className={styles.navbar}>
                 <div className={styles.logo}>
-                    <img src="../../assets/money.png"  className={styles.iconLogo}/>
+                    <img src="https://cdn-icons-png.flaticon.com/128/61/61584.png"  className={styles.iconLogo}/>
                     <h1>Finance Your Life</h1>
                 </div>
                 <img 
-                    src="../../assets/menu.png" 
+                    src="https://www.flaticon.com/free-icon/lines_15641347" 
                     className={styles.icon} 
                     onClick={() => setOpenDrawer(true)}
                 />
