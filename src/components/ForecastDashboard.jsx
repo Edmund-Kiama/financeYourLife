@@ -4,8 +4,179 @@ import styles from "../styles/forecastDash.module.css"
 
 import { useState } from "react"
 
+
+let finance = {
+    jan : {
+        month: "January",
+        income: [
+            { description: "Jan description", amount: 20000 }
+        ],
+        expense: [
+            { description: "Jan description", amount: 5300 }
+        ],
+        difference: 100  
+    },
+    feb : {
+        month: "February",
+        income: [
+            { description: "Feb description", amount: 140000 }
+        ],
+        expense: [
+            { description: "Feb description", amount: 500 }
+        ],
+        difference: 100  
+    },
+    march : {
+        month: "March",
+        income: [
+            { description: "March description", amount: 50000 }
+        ],
+        expense: [
+            { description: "March description", amount: 2300 }
+        ],
+        difference: 100  
+    },
+    april : {
+        month: "April",
+        income: [
+            { description: "April description", amount: 10000 }
+        ],
+        expense: [
+            { description: "April description", amount: 200 }
+        ],
+        difference: 100  
+    },
+    may : {
+        month: "May",
+        income: [
+            { description: "May description", amount: 10000 }
+        ],
+        expense: [
+            { description: "May description", amount: 200 }
+        ],
+        difference: 100  
+    },
+    june : {
+        month: "June",
+        income: [
+            { description: "June description", amount: 10000 }
+        ],
+        expense: [
+            { description: "June description", amount: 200 }
+        ],
+        difference: 100  
+    },
+    july : {
+        month: "July",
+        income: [
+            { description: "July description", amount: 10000 }
+        ],
+        expense: [
+            { description: "July description", amount: 200 }
+        ],
+        difference: 100  
+    },
+    aug : {
+        month: "August",
+        income: [
+            { description: "August description", amount: 10000 }
+        ],
+        expense: [
+            { description: "August description", amount: 200 }
+        ],
+        difference: 100  
+    },
+    sept : {
+        month: "September",
+        income: [
+            { description: "Sep description", amount: 10000 }
+        ],
+        expense: [
+            { description: "Sep description", amount: 200 }
+        ],
+        difference: 100  
+    },
+    oct : {
+        month: "October",
+        income: [
+            { description: "Oct description", amount: 10000 }
+        ],
+        expense: [
+            { description: "Oct description", amount: 200 }
+        ],
+        difference: 100  
+    },
+    nov : {
+        month: "November",
+        income: [
+            { description: "Nov description", amount: 10000 }
+        ],
+        expense: [
+            { description: "Nov description", amount: 200 }
+        ],
+        difference: 100  
+    },
+    dec : {
+        month: "December",
+        income: [
+            { description: "Dec description", amount: 10000 }
+        ],
+        expense: [
+            { description: "Dec description", amount: 200 }
+        ],
+        difference: 100  
+    }
+}
+
 export default function ForecastDash() {
     const [showPopUp, setShowPopUp] = useState(false)
+    const [monthData, setMonthData] = useState(null)
+    const [totalIncomeMonthly, setTotalIncomeMonthly] = useState(null)
+    const [totalExpenseMonthly, setTotalExpenseMonthly] = useState(null)
+    const [ surplusDeficitMonthly, setSurplusDeficitMonthly] = useState("Surplus")
+
+    const surplusDeficitPerMonth = ( income, expense ) => {
+        let totalIncome = totalFinancePerMonth(income)
+        let totalExpense = totalFinancePerMonth(expense)
+    
+        let diff = totalIncome - totalExpense
+    
+        if (diff >= 0) {
+            setSurplusDeficitMonthly("Surplus")
+        } else {
+            setSurplusDeficitMonthly("Deficit")
+        }
+    
+        return diff
+    }
+
+    const totalFinancePerMonth = (financeMonth) => {
+        let financeList = financeMonth.map(x => x.amount)
+
+        let sum = 0
+        for ( let i=0; i < financeList.length; i++) {
+            sum += financeList[i]
+        }
+        return sum
+    }
+
+    const handleMonthClicked = (finance) => {
+        setShowPopUp(true)
+        setMonthData(finance)
+        let totalIncome = totalFinancePerMonth(finance.income)
+        let totalExpense = totalFinancePerMonth(finance.expense)
+
+        setTotalIncomeMonthly(totalIncome)
+        setTotalExpenseMonthly(totalExpense)
+
+        let diff = totalIncome - totalExpense
+    
+        if (diff >= 0) {
+            setSurplusDeficitMonthly("Surplus")
+        } else {
+            setSurplusDeficitMonthly("Deficit")
+        }
+    }
 
     return (
         <>
@@ -47,24 +218,72 @@ export default function ForecastDash() {
 
                         <div className={styles.monthsContainer}>
                             <div className={styles.monthSection}>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>January</div>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>February</div>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>March</div>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>April</div>
+                                <div 
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.jan)}}
+                                >{ finance.jan.month }
+                                </div>
+                                <div 
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.feb)}}
+                                >{ finance.feb.month }
+                                </div>
+                                <div 
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.march)}}
+                                >{ finance.march.month }
+                                </div>
+                                <div    
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.april)}}
+                                >{ finance.april.month }
+                                </div>
                             </div>
 
                             <div className={styles.monthSection}>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>May</div>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>June</div>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>July</div>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>August</div>
+                                <div 
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.may)}}
+                                >{ finance.may.month }
+                                </div>
+                                <div 
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.june)}}
+                                >{ finance.june.month }
+                                </div>
+                                <div 
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.july)}}
+                                >{ finance.july.month }
+                                </div>
+                                <div 
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.aug)}}
+                                >{ finance.aug.month }
+                                </div>
                             </div>
 
                             <div className={styles.monthSection}>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>September</div>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>October</div>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>November</div>
-                                <div className={styles.months} onClick={() => setShowPopUp(true)}>Decemeber</div>
+                                <div 
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.sept)}}
+                                >{ finance.sept.month }
+                                </div>
+                                <div 
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.oct)}}
+                                >{ finance.oct.month }
+                                </div>
+                                <div 
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.nov)}}
+                                >{ finance.nov.month }
+                                </div>
+                                <div 
+                                    className={styles.months} 
+                                    onClick={() => {handleMonthClicked(finance.dec)}}
+                                >{ finance.dec.month }
+                                </div>
                             </div>
 
                         </div>
@@ -80,12 +299,15 @@ export default function ForecastDash() {
                 <section className={styles.popupOverlay}>
                     <div className={styles.popup}>
                         <div className={styles.popupHeader}>
-                            <h2>January</h2>
+                            <h2>{monthData.month}</h2>
                             <img 
                                 src="https://cdn-icons-png.flaticon.com/128/3416/3416079.png" 
                                 alt="close" 
                                 className={styles.close}
-                                onClick={() => setShowPopUp(false)}
+                                onClick={() => {
+                                    setShowPopUp(false)
+                                    setMonthData("")
+                                }}
                                 />
                         </div>
                         <div className={styles.popupDetails}>
@@ -95,7 +317,7 @@ export default function ForecastDash() {
                                     <p>Total Income</p>
                                 </div>
                                 <div>
-                                    <p>1000</p>
+                                    <p>Ksh { totalIncomeMonthly }</p>
                                 </div>
                             </div>
 
@@ -105,17 +327,17 @@ export default function ForecastDash() {
                                     <p>Total Expense</p>
                                 </div>
                                 <div>
-                                    <p>1000</p>
+                                    <p>Ksh { totalExpenseMonthly }</p>
                                 </div>
                             </div>
 
                             <div className={styles.popupSubDetails}>
                                 <div className={styles.popupMiniDetails}>
                                     <p>x</p>
-                                    <p>Surplus</p>
+                                    <p>{ surplusDeficitMonthly }</p>
                                 </div>
                                 <div>
-                                    <p>1000</p>
+                                    <p>Ksh { surplusDeficitMonthly }</p>
                                 </div>
                             </div>
                         </div>
@@ -130,8 +352,16 @@ export default function ForecastDash() {
                                 <button>Add Income</button>
                             </div>
                             <div className={styles.incomeList}>
-                                    <p>Description</p>
-                                    <p>Amount</p>
+                                {
+                                    monthData.income.map((x) => {
+                                        return (
+                                            <>
+                                                <p>{ x.description }</p>
+                                                <p>Ksh { x.amount }</p>
+                                            </>
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
 
@@ -146,8 +376,16 @@ export default function ForecastDash() {
                                 <button>Add Expense</button>
                             </div>
                             <div className={styles.expenseList}>
-                                    <p>Description</p>
-                                    <p>Amount</p>
+                                {
+                                    monthData.expense.map((x) => {
+                                        return (
+                                            <>
+                                                <p>{ x.description }</p>
+                                                <p>Ksh { x.amount }</p>
+                                            </>
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
 
