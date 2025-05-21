@@ -19,12 +19,16 @@
 .popup {
     background: white;
     border-radius: 8px;
-    width: 300px;
-    height: 300px;
+    /* width: 300px; */
+    /* height: 600px; */
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 3em;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-.popupHeader, .popupDetails {
+.popupHeader, 
+.popupDetails {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,13 +38,20 @@
 
 .popupDetails {
     flex-direction: column;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .popupSubDetails,
 .popupMiniDetails {
     display: flex;
     width: 100%;
-    gap: 1em;
+    gap: 0.5em;
+}
+
+.popupSubDetails p{
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
 }
 
 .popupSubDetails{
@@ -51,6 +62,35 @@
 .close {
     cursor: pointer;
     height: 25px;
+}
+
+.inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.inputs input {
+    width: 5em;
+}
+
+.incomeList, 
+.expenseList {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.incomeList p, 
+.expenseList p{
+    width: 10em;
+}
+.income,
+.expense {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
 }
 
 .container {

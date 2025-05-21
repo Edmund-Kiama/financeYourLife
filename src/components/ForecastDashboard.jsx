@@ -91,8 +91,8 @@ export default function ForecastDash() {
                         <div className={styles.popupDetails}>
                             <div className={styles.popupSubDetails}>
                                 <div className={styles.popupMiniDetails}>
-                                    <p>logo</p>
-                                    <p>Income</p>
+                                    <p>x</p>
+                                    <p>Total Income</p>
                                 </div>
                                 <div>
                                     <p>1000</p>
@@ -101,8 +101,8 @@ export default function ForecastDash() {
 
                             <div className={styles.popupSubDetails}>
                                 <div className={styles.popupMiniDetails}>
-                                    <p>logo</p>
-                                    <p>Expense</p>
+                                    <p>x</p>
+                                    <p>Total Expense</p>
                                 </div>
                                 <div>
                                     <p>1000</p>
@@ -111,7 +111,7 @@ export default function ForecastDash() {
 
                             <div className={styles.popupSubDetails}>
                                 <div className={styles.popupMiniDetails}>
-                                    <p>logo</p>
+                                    <p>x</p>
                                     <p>Surplus</p>
                                 </div>
                                 <div>
@@ -119,6 +119,39 @@ export default function ForecastDash() {
                                 </div>
                             </div>
                         </div>
+                        <div className={styles.income}>
+                            <div className={styles.popupMiniDetails}>
+                                <p>x</p>
+                                <p>Total Income</p>
+                            </div>
+                            <div className={styles.inputs}>
+                                <input type="text" placeholder="Description" />
+                                <input type="number" placeholder="Amount" />
+                                <button>Add Income</button>
+                            </div>
+                            <div className={styles.incomeList}>
+                                    <p>Description</p>
+                                    <p>Amount</p>
+                            </div>
+                        </div>
+
+                        <div className={styles.expense}>
+                            <div className={styles.popupMiniDetails}>
+                                <p>x</p>
+                                <p>Total Expense</p>
+                            </div>
+                            <div className={styles.inputs}>
+                                <input type="text" placeholder="Description" />
+                                <input type="number" placeholder="Amount" />
+                                <button>Add Expense</button>
+                            </div>
+                            <div className={styles.expenseList}>
+                                    <p>Description</p>
+                                    <p>Amount</p>
+                            </div>
+                        </div>
+
+
                     </div>
                 </section>
             )}
