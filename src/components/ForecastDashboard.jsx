@@ -2,9 +2,10 @@ import Navbar from "./Navbar"
 import Footer from "./Footer"
 import styles from "../styles/forecastDash.module.css"
 
-import { useState } from "react"
 
+import { useState, useEffect } from "react"
 
+const now = new Date()
 let finance = {
     jan : {
         month: "January",
@@ -122,33 +123,48 @@ let finance = {
             { description: "Dec description", amount: 10000 }
         ],
         expense: [
-            { description: "Dec description", amount: 200 }
+            { description: "Dec description", amount: 200000 }
         ],
-        difference: 100  
+        difference: 100
     }
 }
 
 export default function ForecastDash() {
     const [showPopUp, setShowPopUp] = useState(false)
     const [monthData, setMonthData] = useState(null)
+    const [targetIncome, setTargetIncome] = useState("")
+    const [targetExpense, setTargetExpense] = useState("")
+    const [editTargetIncome, setEditTargetIncome] = useState(true)
+    const [editTargetExpense, setEditTargetExpense] = useState(true)
     const [totalIncomeMonthly, setTotalIncomeMonthly] = useState(null)
     const [totalExpenseMonthly, setTotalExpenseMonthly] = useState(null)
     const [ surplusDeficitMonthly, setSurplusDeficitMonthly] = useState("Surplus")
+    const [ surplusDeficitMonthNumber, setSurplusDeficitMonthNumber] = useState("")
 
-    const surplusDeficitPerMonth = ( income, expense ) => {
-        let totalIncome = totalFinancePerMonth(income)
-        let totalExpense = totalFinancePerMonth(expense)
+    const [addIncomeDescri, setAddIncomeDescri] = useState("")
+    const [addExpenseDescri, setAddExpenseDescri] = useState("")
     
-        let diff = totalIncome - totalExpense
-    
-        if (diff >= 0) {
-            setSurplusDeficitMonthly("Surplus")
-        } else {
-            setSurplusDeficitMonthly("Deficit")
+    const [addExpenseAmount, setAddExpenseAmount] = useState("")
+    const [addIncomeAmount, setAddIncomeAmount] = useState("")
+
+    const getFromLocale = (key) => {
+        try {
+            const data = localStorage.getItem(key)
+            return data ? JSON.parse(data) : null
+        } catch(error) {
+            console.error("Error Ocurred getting item from locale: ", error)
+            
         }
-    
-        return diff
     }
+    const storeToLocale = (key, value) => {
+        try {
+            localStorage.setItem(key, JSON.stringify(value))
+        } catch (error) {
+            console.error("Error on storing to locale: ", error )
+            return null
+        }
+    }
+
 
     const totalFinancePerMonth = (financeMonth) => {
         let financeList = financeMonth.map(x => x.amount)
@@ -160,6 +176,51 @@ export default function ForecastDash() {
         return sum
     }
 
+    const totalIncomeFx = (finance) => {
+        let jan = totalFinancePerMonth(finance.jan.income)
+        let feb = totalFinancePerMonth(finance.feb.income)
+        let march = totalFinancePerMonth(finance.march.income)
+        let april = totalFinancePerMonth(finance.april.income)
+        let may = totalFinancePerMonth(finance.may.income)
+        let june = totalFinancePerMonth(finance.june.income)
+        let july = totalFinancePerMonth(finance.july.income)
+        let august = totalFinancePerMonth(finance.aug.income)
+        let sept = totalFinancePerMonth(finance.sept.income)
+        let oct = totalFinancePerMonth(finance.oct.income)
+        let nov = totalFinancePerMonth(finance.nov.income)
+        let dec = totalFinancePerMonth(finance.dec.income)
+        
+        let sum = jan + feb + march + april + march +july + june + august + may + sept + oct + nov + dec
+        return sum
+    }
+    
+    const totalExpenseFx = (finance) => {
+        let jan = totalFinancePerMonth(finance.jan.expense)
+        let feb = totalFinancePerMonth(finance.feb.expense)
+        let march = totalFinancePerMonth(finance.march.expense)
+        let april = totalFinancePerMonth(finance.april.expense)
+        let may = totalFinancePerMonth(finance.may.expense)
+        let june = totalFinancePerMonth(finance.june.expense)
+        let july = totalFinancePerMonth(finance.july.expense)
+        let august = totalFinancePerMonth(finance.aug.expense)
+        let sept = totalFinancePerMonth(finance.sept.expense)
+        let oct = totalFinancePerMonth(finance.oct.expense)
+        let nov = totalFinancePerMonth(finance.nov.expense)
+        let dec = totalFinancePerMonth(finance.dec.expense)
+        
+        let sum = jan + feb + march + april + march +july + june + august + may + sept + oct + nov + dec
+        return sum
+
+    }
+
+    const totalSurplusFx = () => {
+        let income = totalIncomeFx(finance)
+        let expense = totalExpenseFx(finance)
+
+        return income - expense
+    }
+
+
     const handleMonthClicked = (finance) => {
         setShowPopUp(true)
         setMonthData(finance)
@@ -170,12 +231,41 @@ export default function ForecastDash() {
         setTotalExpenseMonthly(totalExpense)
 
         let diff = totalIncome - totalExpense
+        setSurplusDeficitMonthNumber(diff)
     
         if (diff >= 0) {
             setSurplusDeficitMonthly("Surplus")
         } else {
             setSurplusDeficitMonthly("Deficit")
         }
+    }
+
+    const handleAddIncome = (monthData) => {
+        let income = {
+            description: addIncomeDescri,
+            amount: parseInt(addIncomeAmount)
+        }
+        setAddIncomeAmount("")
+        setAddIncomeDescri("")
+
+        monthData.income.push(income)
+
+        handleMonthClicked(monthData)
+
+    }
+
+    const handleAddExpense = (monthData) => {
+        let expense = {
+            description: addExpenseDescri,
+            amount: parseInt(addExpenseAmount)
+        }
+        setAddIncomeAmount("")
+        setAddIncomeDescri("")
+
+        monthData.expense.push(expense)
+
+        handleMonthClicked(monthData)
+
     }
 
     return (
@@ -189,29 +279,36 @@ export default function ForecastDash() {
                             <div className={styles.details}>
                                 <div className={styles.mainCurrent}>
                                     <div className={styles.current}>
-                                        <p>Current Income:</p>
-                                        <p>Current Surplus:</p>
+                                        <p>Current Income: Kshs {(totalIncomeFx(finance).toLocaleString())}</p>
+                                        <p>Current Surplus: Kshs {(totalSurplusFx().toLocaleString())}</p>
                                     </div>
                                     <div className={styles.current}>
-                                        <p>Current Expense:</p>
-                                        <p>Current Month:</p>
+                                        <p>Current Expense: Kshs {(totalExpenseFx(finance).toLocaleString(0))}</p>
+                                        <p>Current Month: {now.toLocaleString('default', {month:'long'})}</p>
                                     </div>
                                 </div>
 
                                 <div className={styles.target}>
                                     <div className={styles.current}>
-                                            <p>Target Income:</p>
-                                            <p>Target Surplus:</p>
+                                            <p>Target Income: {targetIncome ? `Kshs ${parseInt(targetIncome).toLocaleString()}` : ""}
+                                                <input type="text" onChange={(e) => setTargetIncome(e.target.value)} value={targetIncome} placeholder="Target Income" disabled={editTargetIncome}/>
+                                                <button onClick={() => setEditTargetIncome(x => !x)}>{editTargetIncome ? "Edit": "Set"}</button>
+                                            </p>
+                                            <p>Target Surplus: {(targetIncome && targetExpense) ? `Kshs ${(targetIncome - targetExpense).toLocaleString() }`: ""}</p>
                                         </div>
                                         <div className={styles.current}>
-                                            <p>Target Expense:</p>
+                                            <p>Target Expense: {targetExpense ? `Kshs ${parseInt(targetExpense).toLocaleString()}` : ""}
+                                                <input type="text" onChange={(e) => setTargetExpense(e.target.value)} value={targetExpense} placeholder="Target Expense" disabled={editTargetExpense}/>
+                                                <button onClick={() => setEditTargetExpense(x => !x)}>{editTargetExpense ? "Edit": "Set"}</button>
+                                                </p>
                                             <p></p>
                                         </div>
                                     </div>
                             </div>
 
                             <div className={styles.surplus}>
-                                <p>Current Surplus / Target Surplus</p>
+                                <p>Current Surplus / Target Surplus  :   : </p>
+                                <p>{(totalSurplusFx()).toLocaleString()} / {(targetIncome && targetExpense) ? `${(targetIncome - targetExpense).toLocaleString() }`: ""}</p>
                             </div>
                         </div>
 
@@ -316,8 +413,8 @@ export default function ForecastDash() {
                                     <p>x</p>
                                     <p>Total Income</p>
                                 </div>
-                                <div>
-                                    <p>Ksh { totalIncomeMonthly }</p>
+                                <div className={styles.number}>
+                                    <p>Ksh { totalIncomeMonthly.toLocaleString() }</p>
                                 </div>
                             </div>
 
@@ -326,18 +423,18 @@ export default function ForecastDash() {
                                     <p>x</p>
                                     <p>Total Expense</p>
                                 </div>
-                                <div>
-                                    <p>Ksh { totalExpenseMonthly }</p>
+                                <div className={styles.number}>
+                                    <p>Ksh { totalExpenseMonthly.toLocaleString() }</p>
                                 </div>
                             </div>
 
                             <div className={styles.popupSubDetails}>
                                 <div className={styles.popupMiniDetails}>
                                     <p>x</p>
-                                    <p>{ surplusDeficitMonthly }</p>
+                                    <p>{ surplusDeficitMonthly.toLocaleString() }</p>
                                 </div>
-                                <div>
-                                    <p>Ksh { surplusDeficitMonthly }</p>
+                                <div className={styles.number}>
+                                    <p>Ksh { surplusDeficitMonthNumber.toLocaleString() }</p>
                                 </div>
                             </div>
                         </div>
@@ -347,18 +444,19 @@ export default function ForecastDash() {
                                 <p>Total Income</p>
                             </div>
                             <div className={styles.inputs}>
-                                <input type="text" placeholder="Description" />
-                                <input type="number" placeholder="Amount" />
-                                <button>Add Income</button>
+                                <input type="text" placeholder="Description" value={addIncomeDescri} onChange={(e) => setAddIncomeDescri(e.target.value)}/>
+                                <input type="number" placeholder="Amount" value={addIncomeAmount} onChange={(e) => setAddIncomeAmount(e.target.value)}/>
+                                <button onClick={() => handleAddIncome(monthData)}>Add Income</button>
                             </div>
                             <div className={styles.incomeList}>
                                 {
-                                    monthData.income.map((x) => {
+                                    monthData.income.map((x, index) => {
                                         return (
-                                            <>
+                                            <div key={index}>
                                                 <p>{ x.description }</p>
-                                                <p>Ksh { x.amount }</p>
-                                            </>
+                                                <p>Ksh { (x.amount).toLocaleString() }</p>
+                                                <button>Delete</button>
+                                            </div>
                                         )
                                     })
                                 }
@@ -371,18 +469,19 @@ export default function ForecastDash() {
                                 <p>Total Expense</p>
                             </div>
                             <div className={styles.inputs}>
-                                <input type="text" placeholder="Description" />
-                                <input type="number" placeholder="Amount" />
-                                <button>Add Expense</button>
+                                <input type="text" placeholder="Description" value={addExpenseDescri} onChange={(e) => setAddExpenseDescri(e.target.value)}/>
+                                <input type="number" placeholder="Amount" value={addExpenseAmount} onChange={(e) => setAddExpenseAmount(e.target.value)}/>
+                                <button onClick={() => handleAddExpense(monthData)}>Add Expense</button>
                             </div>
                             <div className={styles.expenseList}>
                                 {
-                                    monthData.expense.map((x) => {
+                                    monthData.expense.map((x, index) => {
                                         return (
-                                            <>
+                                            <div key={index}>
                                                 <p>{ x.description }</p>
-                                                <p>Ksh { x.amount }</p>
-                                            </>
+                                                <p>Ksh { (x.amount.toLocaleString()) }</p>
+                                                <button>Delete</button>
+                                            </div>
                                         )
                                     })
                                 }

@@ -19,8 +19,6 @@
 .popup {
     background: white;
     border-radius: 8px;
-    /* width: 300px; */
-    /* height: 600px; */
     padding-left: 1em;
     padding-right: 1em;
     padding-bottom: 3em;
@@ -32,8 +30,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 .popupDetails {
@@ -53,11 +51,13 @@
     margin-top: 0.2em;
     margin-bottom: 0.2em;
 }
-
-.popupSubDetails{
-    align-items: center;
-    justify-content: center;
+.number {
+    width: 10em;
 }
+/* .popupSubDetails{
+    align-items: center;
+    justify-content: space-between;
+} */
 
 .close {
     cursor: pointer;
@@ -79,17 +79,16 @@
 .expenseList {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .incomeList p, 
 .expenseList p{
-    width: 10em;
+    padding-right: 1em;
 }
 .income,
 .expense {
-    width: 100%;
-    padding: 0.5em;
+    padding-left: 1em;
     margin-bottom: 1em;
 }
 
@@ -169,5 +168,5 @@
 }
 
 .months:hover {
-    background-color: rgb(230, 230, 230);
+    transform: scale(1.05);
 }
