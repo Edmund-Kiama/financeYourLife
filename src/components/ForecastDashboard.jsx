@@ -1,139 +1,32 @@
 import Navbar from "./Navbar"
 import Footer from "./Footer"
 import styles from "../styles/forecastDash.module.css"
+import defaultFinance from "../finance"
 
 
 import { useState, useEffect } from "react"
 
 const now = new Date()
-let finance = {
-    jan : {
-        month: "January",
-        income: [
-            { description: "Jan description", amount: 20000 }
-        ],
-        expense: [
-            { description: "Jan description", amount: 5300 }
-        ],
-        difference: 100  
-    },
-    feb : {
-        month: "February",
-        income: [
-            { description: "Feb description", amount: 140000 }
-        ],
-        expense: [
-            { description: "Feb description", amount: 500 }
-        ],
-        difference: 100  
-    },
-    march : {
-        month: "March",
-        income: [
-            { description: "March description", amount: 50000 }
-        ],
-        expense: [
-            { description: "March description", amount: 2300 }
-        ],
-        difference: 100  
-    },
-    april : {
-        month: "April",
-        income: [
-            { description: "April description", amount: 10000 }
-        ],
-        expense: [
-            { description: "April description", amount: 200 }
-        ],
-        difference: 100  
-    },
-    may : {
-        month: "May",
-        income: [
-            { description: "May description", amount: 10000 }
-        ],
-        expense: [
-            { description: "May description", amount: 200 }
-        ],
-        difference: 100  
-    },
-    june : {
-        month: "June",
-        income: [
-            { description: "June description", amount: 10000 }
-        ],
-        expense: [
-            { description: "June description", amount: 200 }
-        ],
-        difference: 100  
-    },
-    july : {
-        month: "July",
-        income: [
-            { description: "July description", amount: 10000 }
-        ],
-        expense: [
-            { description: "July description", amount: 200 }
-        ],
-        difference: 100  
-    },
-    aug : {
-        month: "August",
-        income: [
-            { description: "August description", amount: 10000 }
-        ],
-        expense: [
-            { description: "August description", amount: 200 }
-        ],
-        difference: 100  
-    },
-    sept : {
-        month: "September",
-        income: [
-            { description: "Sep description", amount: 10000 }
-        ],
-        expense: [
-            { description: "Sep description", amount: 200 }
-        ],
-        difference: 100  
-    },
-    oct : {
-        month: "October",
-        income: [
-            { description: "Oct description", amount: 10000 }
-        ],
-        expense: [
-            { description: "Oct description", amount: 200 }
-        ],
-        difference: 100  
-    },
-    nov : {
-        month: "November",
-        income: [
-            { description: "Nov description", amount: 10000 }
-        ],
-        expense: [
-            { description: "Nov description", amount: 200 }
-        ],
-        difference: 100  
-    },
-    dec : {
-        month: "December",
-        income: [
-            { description: "Dec description", amount: 10000 }
-        ],
-        expense: [
-            { description: "Dec description", amount: 200000 }
-        ],
-        difference: 100
-    }
-}
 
 export default function ForecastDash() {
+
+    const [finance, setFinance] = useState(() => {
+        const stored = localStorage.getItem("finance")
+        return stored ? JSON.parse(stored) : defaultFinance
+    })
+
+    const [targetIncome, setTargetIncome] = useState(() => {
+        const stored = localStorage.getItem("targetIncome")
+        return stored ? JSON.parse(stored) : ""
+    })
+
+    const [targetExpense, setTargetExpense] = useState(() => {
+        const stored = localStorage.getItem("targetExpense")
+        return stored ? JSON.parse(stored) : ""
+    })
+
     const [showPopUp, setShowPopUp] = useState(false)
     const [monthData, setMonthData] = useState(null)
-    const [targetIncome, setTargetIncome] = useState("")
-    const [targetExpense, setTargetExpense] = useState("")
     const [editTargetIncome, setEditTargetIncome] = useState(true)
     const [editTargetExpense, setEditTargetExpense] = useState(true)
     const [totalIncomeMonthly, setTotalIncomeMonthly] = useState(null)
@@ -147,15 +40,16 @@ export default function ForecastDash() {
     const [addExpenseAmount, setAddExpenseAmount] = useState("")
     const [addIncomeAmount, setAddIncomeAmount] = useState("")
 
-    const getFromLocale = (key) => {
-        try {
-            const data = localStorage.getItem(key)
-            return data ? JSON.parse(data) : null
-        } catch(error) {
-            console.error("Error Ocurred getting item from locale: ", error)
-            
-        }
-    }
+
+    // const getFromLocale = (key) => {
+    //     try {
+    //         const data = localStorage.getItem(key)
+    //         return data ? JSON.parse(data) : null
+    //     } catch(error) {
+    //         console.error("Error Ocurred getting item from locale: ", error)     
+    //     }
+    // }
+
     const storeToLocale = (key, value) => {
         try {
             localStorage.setItem(key, JSON.stringify(value))
@@ -164,6 +58,27 @@ export default function ForecastDash() {
             return null
         }
     }
+
+
+
+    useEffect(() => {
+        storeToLocale("finance", finance)
+        totalSurplusFx()
+    }, [ finance ])
+
+    useEffect(() => {
+        storeToLocale("targetIncome", targetIncome)
+    }, [ targetIncome ])
+
+    useEffect(() => {
+        storeToLocale("targetExpense", targetExpense)
+    }, [ targetExpense ])
+
+    useEffect(() => {
+        totalSurplusFx()
+    }, [ monthData ])
+
+
 
 
     const totalFinancePerMonth = (financeMonth) => {
@@ -177,38 +92,40 @@ export default function ForecastDash() {
     }
 
     const totalIncomeFx = (finance) => {
-        let jan = totalFinancePerMonth(finance.jan.income)
-        let feb = totalFinancePerMonth(finance.feb.income)
+        let jan = totalFinancePerMonth(finance.january.income)
+        let feb = totalFinancePerMonth(finance.february.income)
         let march = totalFinancePerMonth(finance.march.income)
         let april = totalFinancePerMonth(finance.april.income)
         let may = totalFinancePerMonth(finance.may.income)
         let june = totalFinancePerMonth(finance.june.income)
         let july = totalFinancePerMonth(finance.july.income)
-        let august = totalFinancePerMonth(finance.aug.income)
-        let sept = totalFinancePerMonth(finance.sept.income)
-        let oct = totalFinancePerMonth(finance.oct.income)
-        let nov = totalFinancePerMonth(finance.nov.income)
-        let dec = totalFinancePerMonth(finance.dec.income)
+        let august = totalFinancePerMonth(finance.august.income)
+        let sept = totalFinancePerMonth(finance.september.income)
+        let oct = totalFinancePerMonth(finance.october.income)
+        let nov = totalFinancePerMonth(finance.november.income)
+        let dec = totalFinancePerMonth(finance.december.income)
         
         let sum = jan + feb + march + april + march +july + june + august + may + sept + oct + nov + dec
+
         return sum
     }
     
     const totalExpenseFx = (finance) => {
-        let jan = totalFinancePerMonth(finance.jan.expense)
-        let feb = totalFinancePerMonth(finance.feb.expense)
+        let jan = totalFinancePerMonth(finance.january.expense)
+        let feb = totalFinancePerMonth(finance.february.expense)
         let march = totalFinancePerMonth(finance.march.expense)
         let april = totalFinancePerMonth(finance.april.expense)
         let may = totalFinancePerMonth(finance.may.expense)
         let june = totalFinancePerMonth(finance.june.expense)
         let july = totalFinancePerMonth(finance.july.expense)
-        let august = totalFinancePerMonth(finance.aug.expense)
-        let sept = totalFinancePerMonth(finance.sept.expense)
-        let oct = totalFinancePerMonth(finance.oct.expense)
-        let nov = totalFinancePerMonth(finance.nov.expense)
-        let dec = totalFinancePerMonth(finance.dec.expense)
+        let august = totalFinancePerMonth(finance.august.expense)
+        let sept = totalFinancePerMonth(finance.september.expense)
+        let oct = totalFinancePerMonth(finance.october.expense)
+        let nov = totalFinancePerMonth(finance.november.expense)
+        let dec = totalFinancePerMonth(finance.december.expense)
         
         let sum = jan + feb + march + april + march +july + june + august + may + sept + oct + nov + dec
+
         return sum
 
     }
@@ -217,15 +134,17 @@ export default function ForecastDash() {
         let income = totalIncomeFx(finance)
         let expense = totalExpenseFx(finance)
 
-        return income - expense
+        let surplus = income - expense
+
+        return surplus
     }
 
 
-    const handleMonthClicked = (finance) => {
+    const handleMonthClicked = (monthKey) => {
         setShowPopUp(true)
-        setMonthData(finance)
-        let totalIncome = totalFinancePerMonth(finance.income)
-        let totalExpense = totalFinancePerMonth(finance.expense)
+        setMonthData(monthKey)
+        let totalIncome = totalFinancePerMonth(monthKey.income)
+        let totalExpense = totalFinancePerMonth(monthKey.expense)
 
         setTotalIncomeMonthly(totalIncome)
         setTotalExpenseMonthly(totalExpense)
@@ -240,32 +159,93 @@ export default function ForecastDash() {
         }
     }
 
-    const handleAddIncome = (monthData) => {
-        let income = {
+    const handleAddIncome = (monthData, month) => {
+        let newIncome = {
             description: addIncomeDescri,
             amount: parseInt(addIncomeAmount)
         }
         setAddIncomeAmount("")
         setAddIncomeDescri("")
 
-        monthData.income.push(income)
+        let updated = {
+            ...monthData,
+            income: [...monthData.income, newIncome]
+        }
+        setMonthData(updated)
 
-        handleMonthClicked(monthData)
+        finance[month] = updated
+        setFinance(prev => ({
+            ...prev,
+            [month.toLowerCase()]: updated
+        }))
 
+        handleMonthClicked(updated)
     }
 
-    const handleAddExpense = (monthData) => {
-        let expense = {
+    const handleAddExpense = (monthData, month) => {
+        let newExpense = {
             description: addExpenseDescri,
             amount: parseInt(addExpenseAmount)
         }
         setAddIncomeAmount("")
         setAddIncomeDescri("")
 
-        monthData.expense.push(expense)
+        let updated = {
+            ...monthData,
+            expense: [...monthData.expense, newExpense]
+        }
+        setMonthData(updated)
 
-        handleMonthClicked(monthData)
+        finance[month] = updated
 
+        setFinance(prev => ({
+            ...prev,
+            [month.toLowerCase()]: updated
+        }))
+
+        handleMonthClicked(updated)
+    }
+
+    const handleDeleteIncome = (monthData, index) => {
+        
+        let updatedMonth;
+        
+        setFinance(prev => {
+            const month = prev[monthData.month.toLowerCase()];
+            updatedMonth = {
+              ...month,
+              income: month.income.filter((_, i) => i !== index)
+            };
+
+            setMonthData(updatedMonth)
+            handleMonthClicked(updatedMonth)
+        
+            return {
+              ...prev,
+              [monthData.month.toLowerCase()]: updatedMonth
+            };
+        });
+    }
+
+    const handleDeleteExpense = (monthData, index) => {
+        
+        let updatedMonth;
+        
+        setFinance(prev => {
+            const month = prev[monthData.month.toLowerCase()];
+            updatedMonth = {
+              ...month,
+              expense: month.expense.filter((_, i) => i !== index)
+            };
+
+            setMonthData(updatedMonth)
+            handleMonthClicked(updatedMonth)
+        
+            return {
+              ...prev,
+              [monthData.month.toLowerCase()]: updatedMonth
+            };
+        });
     }
 
     return (
@@ -283,7 +263,7 @@ export default function ForecastDash() {
                                         <p>Current Surplus: Kshs {(totalSurplusFx().toLocaleString())}</p>
                                     </div>
                                     <div className={styles.current}>
-                                        <p>Current Expense: Kshs {(totalExpenseFx(finance).toLocaleString(0))}</p>
+                                        <p>Current Expense: Kshs {(totalExpenseFx(finance).toLocaleString())}</p>
                                         <p>Current Month: {now.toLocaleString('default', {month:'long'})}</p>
                                     </div>
                                 </div>
@@ -307,8 +287,8 @@ export default function ForecastDash() {
                             </div>
 
                             <div className={styles.surplus}>
-                                <p>Current Surplus / Target Surplus  :   : </p>
-                                <p>{(totalSurplusFx()).toLocaleString()} / {(targetIncome && targetExpense) ? `${(targetIncome - targetExpense).toLocaleString() }`: ""}</p>
+                                <p>Current Surplus / Target Surplus: </p>
+                                <p>{(totalSurplusFx() && targetIncome && targetExpense) ? `${(totalSurplusFx()).toLocaleString()} / ${(targetIncome - targetExpense).toLocaleString() }`: ""}</p>
                             </div>
                         </div>
 
@@ -317,13 +297,13 @@ export default function ForecastDash() {
                             <div className={styles.monthSection}>
                                 <div 
                                     className={styles.months} 
-                                    onClick={() => {handleMonthClicked(finance.jan)}}
-                                >{ finance.jan.month }
+                                    onClick={() => {handleMonthClicked(finance.january)}}
+                                >{ finance.january.month }
                                 </div>
                                 <div 
                                     className={styles.months} 
-                                    onClick={() => {handleMonthClicked(finance.feb)}}
-                                >{ finance.feb.month }
+                                    onClick={() => {handleMonthClicked(finance.february)}}
+                                >{ finance.february.month }
                                 </div>
                                 <div 
                                     className={styles.months} 
@@ -355,31 +335,31 @@ export default function ForecastDash() {
                                 </div>
                                 <div 
                                     className={styles.months} 
-                                    onClick={() => {handleMonthClicked(finance.aug)}}
-                                >{ finance.aug.month }
+                                    onClick={() => {handleMonthClicked(finance.august)}}
+                                >{ finance.august.month }
                                 </div>
                             </div>
 
                             <div className={styles.monthSection}>
                                 <div 
                                     className={styles.months} 
-                                    onClick={() => {handleMonthClicked(finance.sept)}}
-                                >{ finance.sept.month }
+                                    onClick={() => {handleMonthClicked(finance.september)}}
+                                >{ finance.september.month }
                                 </div>
                                 <div 
                                     className={styles.months} 
-                                    onClick={() => {handleMonthClicked(finance.oct)}}
-                                >{ finance.oct.month }
+                                    onClick={() => {handleMonthClicked(finance.october)}}
+                                >{ finance.october.month }
                                 </div>
                                 <div 
                                     className={styles.months} 
-                                    onClick={() => {handleMonthClicked(finance.nov)}}
-                                >{ finance.nov.month }
+                                    onClick={() => {handleMonthClicked(finance.november)}}
+                                >{ finance.november.month }
                                 </div>
                                 <div 
                                     className={styles.months} 
-                                    onClick={() => {handleMonthClicked(finance.dec)}}
-                                >{ finance.dec.month }
+                                    onClick={() => {handleMonthClicked(finance.december)}}
+                                >{ finance.december.month }
                                 </div>
                             </div>
 
@@ -446,7 +426,7 @@ export default function ForecastDash() {
                             <div className={styles.inputs}>
                                 <input type="text" placeholder="Description" value={addIncomeDescri} onChange={(e) => setAddIncomeDescri(e.target.value)}/>
                                 <input type="number" placeholder="Amount" value={addIncomeAmount} onChange={(e) => setAddIncomeAmount(e.target.value)}/>
-                                <button onClick={() => handleAddIncome(monthData)}>Add Income</button>
+                                <button onClick={() => handleAddIncome(monthData, monthData.month)}>Add Income</button>
                             </div>
                             <div className={styles.incomeList}>
                                 {
@@ -455,7 +435,7 @@ export default function ForecastDash() {
                                             <div key={index}>
                                                 <p>{ x.description }</p>
                                                 <p>Ksh { (x.amount).toLocaleString() }</p>
-                                                <button>Delete</button>
+                                                <button onClick={() => handleDeleteIncome(monthData, index)}>Delete</button>
                                             </div>
                                         )
                                     })
@@ -471,7 +451,7 @@ export default function ForecastDash() {
                             <div className={styles.inputs}>
                                 <input type="text" placeholder="Description" value={addExpenseDescri} onChange={(e) => setAddExpenseDescri(e.target.value)}/>
                                 <input type="number" placeholder="Amount" value={addExpenseAmount} onChange={(e) => setAddExpenseAmount(e.target.value)}/>
-                                <button onClick={() => handleAddExpense(monthData)}>Add Expense</button>
+                                <button onClick={() => handleAddExpense(monthData, monthData.month)}>Add Expense</button>
                             </div>
                             <div className={styles.expenseList}>
                                 {
@@ -480,7 +460,7 @@ export default function ForecastDash() {
                                             <div key={index}>
                                                 <p>{ x.description }</p>
                                                 <p>Ksh { (x.amount.toLocaleString()) }</p>
-                                                <button>Delete</button>
+                                                <button onClick={() => handleDeleteExpense(monthData, index)} >Delete</button>
                                             </div>
                                         )
                                     })

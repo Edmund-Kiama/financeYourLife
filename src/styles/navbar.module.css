@@ -84,14 +84,29 @@
 .drawerDetails {
     display: flex;
     align-items: center;
-    /* justify-content: center; */
+    gap: 1em;
+    text-decoration: none;
+    padding-left: 2em;
+    transition: 0.3em ease;
+    color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+}
+
+.drawerDetailsActive:hover,
+.drawerDetails:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+.drawerDetailsActive {
+    display: flex;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    align-items: center;
     gap: 1em;
     padding-left: 2em;
     transition: 0.3em ease;
     cursor: pointer;
 }
 
-.drawerDetails:hover {
-    background-color: rgb(230, 230, 230);
-}
 

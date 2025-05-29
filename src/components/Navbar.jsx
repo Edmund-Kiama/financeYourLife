@@ -1,8 +1,11 @@
+import { useState } from "react"
+import { NavLink } from "react-router"
+
 import styles from "../styles/navbar.module.css"
 
-import { useState } from "react"
 
 const NavBar = () => {
+
     const [openDrawer, setOpenDrawer] = useState(false)
     return (
         <>
@@ -30,30 +33,30 @@ const NavBar = () => {
                 </div>
 
                 <div className={styles.drawerLinks}>
-                    <div className={styles.drawerDetails}>
+                    <NavLink to="/" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
                         <p>l</p>
                         <p>Forecast Dashboard</p>
-                    </div>
-                    <div className={styles.drawerDetails}>
+                    </NavLink>
+                    <NavLink to="/monthly-check-ins" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
                         <p>l</p>
                         <p>Monthly Check-Ins</p>
-                    </div>
-                    <div className={styles.drawerDetails}>
+                    </NavLink>
+                    <NavLink to="/net-worth-&-debt" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
                         <p>l</p>
                         <p>Net Worth & Debt</p>
-                    </div>
-                    <div className={styles.drawerDetails}>
+                    </NavLink>
+                    <NavLink to="/savings-&-investments" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
                         <p>l</p>
                         <p>Savings & Investments</p>
-                    </div>
-                    <div className={styles.drawerDetails}>
+                    </NavLink>
+                    <NavLink to="/goals-tracker" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
                         <p>l</p>
                         <p>Goals Tracker</p>
-                    </div>
-                    <div className={styles.drawerDetails}>
+                    </NavLink>
+                    <NavLink to="/biggest-spenders" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
                         <p>l</p>
                         <p>Biggest Spenders</p>
-                    </div>
+                    </NavLink>
                 </div>
 
             </div>
