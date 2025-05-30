@@ -98,6 +98,9 @@
     justify-content: center;
     width: 95vw;
 }
+.container h2 {
+    padding-left: 0.5em;
+}
 .mainContainer {
     /* display: flex; */
     align-items: center;
@@ -113,19 +116,30 @@
     width: 100%;
 }
 
+.target {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
 .current {
     flex-wrap: wrap;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 2em;
     /* gap: 15em; */
     padding: 1em;
 } 
 
 .current p {
-    width: 10em;
+    /* width: 10em; */
     margin-left: 1em;
     margin-right: 1em;
+}
+
+.current p div {
+    display: flex; 
 }
 
 .surplus {
@@ -139,6 +153,7 @@
 
 .monthsContainer {
     display: flex;
+    text-align: center;
     flex-direction: column;
     width: 90%;
     flex-wrap: wrap;
@@ -157,7 +172,8 @@
 }
 
 .months {
-    padding: 2em;
+    text-align: center;
+    padding: 1em;
     width: 4em;
     text-align: center;
     margin: 1em;
@@ -170,3 +186,57 @@
 .months:hover {
     transform: scale(1.05);
 }
+@media (max-width: 600px) {
+    .months {
+        /* width: 3em; */
+        text-align: center;
+    }
+}
+.charts {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+}
+
+.barChart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 3em;
+    margin: 50px auto;
+    height: 500px;
+}
+
+@media (max-width: 600px) {
+    .barChart {
+        width: 90vw;
+    }
+}
+
+.gaugeChart {
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 2em;
+    border-radius: 1em;
+    max-width: 100%;
+    width: 320px;
+    box-sizing: border-box;
+    margin: 1em auto;
+  }
+
+@media (max-width: 600px) {
+    .gaugeChart {
+      width: 90vw;
+      padding: 1.5em;
+    }
+  }
+
+
+

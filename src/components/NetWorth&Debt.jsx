@@ -7,7 +7,7 @@ export default function NetWorthAndDebt() {
         <>
             <main>
                 <Navbar />
-                <div></div>
+                <div>Dougnut of both networth and debt seperate, Shows what contributes to my networth</div>
 
                 <Footer />
             </main>

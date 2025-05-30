@@ -3,8 +3,15 @@ import Footer from "./Footer"
 import styles from "../styles/forecastDash.module.css"
 import defaultFinance from "../finance"
 
+import { PiTrendDownBold } from "react-icons/pi";
+import { TbPlusMinus } from "react-icons/tb";
+import { PiTrendUpBold } from "react-icons/pi";
+import { SiTicktick } from "react-icons/si";
+import { MdEdit } from "react-icons/md";
 
 import { useState, useEffect } from "react"
+import BarChart from "../charts/SurplusBarChart";
+import GaugeChart from "../charts/SurplusTargetGaugeChart";
 
 const now = new Date()
 
@@ -27,8 +34,10 @@ export default function ForecastDash() {
 
     const [showPopUp, setShowPopUp] = useState(false)
     const [monthData, setMonthData] = useState(null)
+    const [currentYear, setCurrentYear] = useState(2025)
     const [editTargetIncome, setEditTargetIncome] = useState(true)
     const [editTargetExpense, setEditTargetExpense] = useState(true)
+    const [editCurrentYear, setEditCurrentYear] = useState(true)
     const [totalIncomeMonthly, setTotalIncomeMonthly] = useState(null)
     const [totalExpenseMonthly, setTotalExpenseMonthly] = useState(null)
     const [ surplusDeficitMonthly, setSurplusDeficitMonthly] = useState("Surplus")
@@ -150,6 +159,14 @@ export default function ForecastDash() {
         setTotalExpenseMonthly(totalExpense)
 
         let diff = totalIncome - totalExpense
+        finance[monthKey.month.toLowerCase()].difference = diff
+        setFinance(prev => ({
+            ...prev,
+            [monthKey.month.toLowerCase()]: {
+                ...prev[monthKey.month.toLowerCase()],
+                difference: diff
+            }
+        }))
         setSurplusDeficitMonthNumber(diff)
     
         if (diff >= 0) {
@@ -258,109 +275,123 @@ export default function ForecastDash() {
                         <div className={styles.detailsContainer}>
                             <div className={styles.details}>
                                 <div className={styles.mainCurrent}>
+                                    <h2>Current</h2>
                                     <div className={styles.current}>
-                                        <p>Current Income: Kshs {(totalIncomeFx(finance).toLocaleString())}</p>
-                                        <p>Current Surplus: Kshs {(totalSurplusFx().toLocaleString())}</p>
+                                        <p>Income: Kshs {(totalIncomeFx(finance).toLocaleString())}</p>
+                                        <p> Expense: Kshs {(totalExpenseFx(finance).toLocaleString())}</p>
                                     </div>
                                     <div className={styles.current}>
-                                        <p>Current Expense: Kshs {(totalExpenseFx(finance).toLocaleString())}</p>
-                                        <p>Current Month: {now.toLocaleString('default', {month:'long'})}</p>
+                                        <p>Surplus: Kshs {(totalSurplusFx().toLocaleString())}</p>
+                                        <p> Month: {now.toLocaleString('default', {month:'long'})}</p>
                                     </div>
                                 </div>
 
                                 <div className={styles.target}>
+                                    <h2>Target</h2>
                                     <div className={styles.current}>
-                                            <p>Target Income: {targetIncome ? `Kshs ${parseInt(targetIncome).toLocaleString()}` : ""}
+                                            <p>Income: {targetIncome ? `Kshs ${parseInt(targetIncome).toLocaleString()}` : ""}
                                                 <input type="text" onChange={(e) => setTargetIncome(e.target.value)} value={targetIncome} placeholder="Target Income" disabled={editTargetIncome}/>
-                                                <button onClick={() => setEditTargetIncome(x => !x)}>{editTargetIncome ? "Edit": "Set"}</button>
-                                            </p>
-                                            <p>Target Surplus: {(targetIncome && targetExpense) ? `Kshs ${(targetIncome - targetExpense).toLocaleString() }`: ""}</p>
+                                                <button onClick={() => setEditTargetIncome(x => !x)}>{editTargetIncome ?  <MdEdit /> : <SiTicktick />}</button>
+                                             </p>
+                                             <p>Expense: {targetExpense ? `Kshs ${parseInt(targetExpense).toLocaleString()}` : ""}
+                                               <input type="text" onChange={(e) => setTargetExpense(e.target.value)} value={targetExpense} placeholder="Target Expense" disabled={editTargetExpense}/>
+                                                <button onClick={() => setEditTargetExpense(x => !x)}>{editTargetExpense ? <MdEdit /> : <SiTicktick />}</button>
+                                               </p>
                                         </div>
                                         <div className={styles.current}>
-                                            <p>Target Expense: {targetExpense ? `Kshs ${parseInt(targetExpense).toLocaleString()}` : ""}
-                                                <input type="text" onChange={(e) => setTargetExpense(e.target.value)} value={targetExpense} placeholder="Target Expense" disabled={editTargetExpense}/>
-                                                <button onClick={() => setEditTargetExpense(x => !x)}>{editTargetExpense ? "Edit": "Set"}</button>
-                                                </p>
+                                        <p>Surplus: {(targetIncome && targetExpense) ? `Kshs ${(targetIncome - targetExpense).toLocaleString() }`: ""}</p>
                                             <p></p>
                                         </div>
                                     </div>
                             </div>
 
-                            <div className={styles.surplus}>
-                                <p>Current Surplus / Target Surplus: </p>
-                                <p>{(totalSurplusFx() && targetIncome && targetExpense) ? `${(totalSurplusFx()).toLocaleString()} / ${(targetIncome - targetExpense).toLocaleString() }`: ""}</p>
+                            <div className={styles.charts}>
+
+                                <div className={styles.gaugeChart}>
+                                    <GaugeChart finance={finance}/>
+                                </div>
+
+                                <div className={styles.barChart}>
+                                    <BarChart finance={finance} />
+                                </div>
+
                             </div>
                         </div>
 
 
                         <div className={styles.monthsContainer}>
+                            <div>
+                                <input type="number" onChange={(e) => setCurrentYear(e.target.value)} value={currentYear} placeholder="Current Year" disabled={editCurrentYear}/>
+                                <button onClick={() => setEditCurrentYear(x => !x)}>{editCurrentYear ? <MdEdit /> : <SiTicktick />}</button>
+                                <h2>Year: {currentYear}</h2>
+                            </div>
                             <div className={styles.monthSection}>
-                                <div 
+                                <p
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.january)}}
                                 >{ finance.january.month }
-                                </div>
-                                <div 
+                                </p>
+                                <p
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.february)}}
                                 >{ finance.february.month }
-                                </div>
-                                <div 
+                                </p>
+                                <p
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.march)}}
                                 >{ finance.march.month }
-                                </div>
-                                <div    
+                                </p>
+                                <p    
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.april)}}
                                 >{ finance.april.month }
-                                </div>
+                                </p>
                             </div>
 
                             <div className={styles.monthSection}>
-                                <div 
+                                <p 
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.may)}}
                                 >{ finance.may.month }
-                                </div>
-                                <div 
+                                </p>
+                                <p 
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.june)}}
                                 >{ finance.june.month }
-                                </div>
-                                <div 
+                                </p>
+                                <p 
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.july)}}
                                 >{ finance.july.month }
-                                </div>
-                                <div 
+                                </p>
+                                <p 
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.august)}}
                                 >{ finance.august.month }
-                                </div>
+                                </p>
                             </div>
 
                             <div className={styles.monthSection}>
-                                <div 
+                                <p 
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.september)}}
                                 >{ finance.september.month }
-                                </div>
-                                <div 
+                                </p>
+                                <p 
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.october)}}
                                 >{ finance.october.month }
-                                </div>
-                                <div 
+                                </p>
+                                <p 
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.november)}}
                                 >{ finance.november.month }
-                                </div>
-                                <div 
+                                </p>
+                                <p 
                                     className={styles.months} 
                                     onClick={() => {handleMonthClicked(finance.december)}}
                                 >{ finance.december.month }
-                                </div>
+                                </p>
                             </div>
 
                         </div>
@@ -390,7 +421,7 @@ export default function ForecastDash() {
                         <div className={styles.popupDetails}>
                             <div className={styles.popupSubDetails}>
                                 <div className={styles.popupMiniDetails}>
-                                    <p>x</p>
+                                    <PiTrendUpBold />
                                     <p>Total Income</p>
                                 </div>
                                 <div className={styles.number}>
@@ -400,7 +431,7 @@ export default function ForecastDash() {
 
                             <div className={styles.popupSubDetails}>
                                 <div className={styles.popupMiniDetails}>
-                                    <p>x</p>
+                                    <PiTrendDownBold />
                                     <p>Total Expense</p>
                                 </div>
                                 <div className={styles.number}>
@@ -410,7 +441,7 @@ export default function ForecastDash() {
 
                             <div className={styles.popupSubDetails}>
                                 <div className={styles.popupMiniDetails}>
-                                    <p>x</p>
+                                    <TbPlusMinus />
                                     <p>{ surplusDeficitMonthly.toLocaleString() }</p>
                                 </div>
                                 <div className={styles.number}>
@@ -420,7 +451,7 @@ export default function ForecastDash() {
                         </div>
                         <div className={styles.income}>
                             <div className={styles.popupMiniDetails}>
-                                <p>x</p>
+                                <PiTrendUpBold />
                                 <p>Total Income</p>
                             </div>
                             <div className={styles.inputs}>
@@ -445,7 +476,7 @@ export default function ForecastDash() {
 
                         <div className={styles.expense}>
                             <div className={styles.popupMiniDetails}>
-                                <p>x</p>
+                                <PiTrendDownBold />
                                 <p>Total Expense</p>
                             </div>
                             <div className={styles.inputs}>

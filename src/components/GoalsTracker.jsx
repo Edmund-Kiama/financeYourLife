@@ -7,7 +7,7 @@ export default function GoalsTracker() {
         <>
             <main>
                 <Navbar />
-                <div></div>
+                <div>#polar area to see diferrence of my goal and what I currently have rn</div>
 
                 <Footer />
             </main>

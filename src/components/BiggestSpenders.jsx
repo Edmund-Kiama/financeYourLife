@@ -7,7 +7,7 @@ export default function BiggestSpenders() {
         <>
             <main>
                 <Navbar />
-                <div></div>
+                <div>#Pie chart of my biggest money eaters</div>
 
                 <Footer />
             </main>

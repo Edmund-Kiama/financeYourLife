@@ -7,7 +7,7 @@ export default function MonthlyCheckIns() {
         <>
             <main>
                 <Navbar />
-                <div></div>
+                <div>3dougnut chart on this i've spent this month</div>
 
                 <Footer />
             </main>

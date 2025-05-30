@@ -1,6 +1,14 @@
 import { useState } from "react"
 import { NavLink } from "react-router"
 
+import { MdDashboardCustomize } from "react-icons/md";
+import { FaClipboardCheck } from "react-icons/fa6";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { MdSavings } from "react-icons/md";
+import { PiTrendDownBold } from "react-icons/pi";
+import { TbChecklist } from "react-icons/tb";
+
+
 import styles from "../styles/navbar.module.css"
 
 
@@ -34,27 +42,27 @@ const NavBar = () => {
 
                 <div className={styles.drawerLinks}>
                     <NavLink to="/" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
-                        <p>l</p>
+                        <MdDashboardCustomize />
                         <p>Forecast Dashboard</p>
                     </NavLink>
                     <NavLink to="/monthly-check-ins" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
-                        <p>l</p>
+                        <FaClipboardCheck />
                         <p>Monthly Check-Ins</p>
                     </NavLink>
                     <NavLink to="/net-worth-&-debt" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
-                        <p>l</p>
+                        <FaMoneyBillTrendUp />
                         <p>Net Worth & Debt</p>
                     </NavLink>
                     <NavLink to="/savings-&-investments" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
-                        <p>l</p>
+                        <MdSavings />
                         <p>Savings & Investments</p>
                     </NavLink>
                     <NavLink to="/goals-tracker" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
-                        <p>l</p>
+                        <TbChecklist />
                         <p>Goals Tracker</p>
                     </NavLink>
                     <NavLink to="/biggest-spenders" className={({ isActive }) => (isActive ? styles.drawerDetailsActive : styles.drawerDetails)}>
-                        <p>l</p>
+                        <PiTrendDownBold />
                         <p>Biggest Spenders</p>
                     </NavLink>
                 </div>
