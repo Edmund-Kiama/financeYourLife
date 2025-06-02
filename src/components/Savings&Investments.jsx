@@ -12,7 +12,7 @@ export default function SavingsAndInvestments() {
 
     return (
         <>
-            <main>
+            <main className={styles.savingsNInvests}>
                 <div className={showForm ? styles.contentBlur : ""}>
                 <Navbar />
                 <section className={styles.mainContainer}>

@@ -266,13 +266,15 @@ export default function ForecastDash() {
     }
 
     return (
-        <>
+        <div className={styles.mainDash}>
             <main className={showPopUp ? styles.contentBlur : "" } >
                 <Navbar />
                 <div className={styles.container}>
                     <div className={styles.mainContainer}>
                         
                         <div className={styles.detailsContainer}>
+
+
                             <div className={styles.details}>
                                 <div className={styles.mainCurrent}>
                                     <h2>Current</h2>
@@ -305,17 +307,20 @@ export default function ForecastDash() {
                                     </div>
                             </div>
 
-                            <div className={styles.charts}>
 
+                            <div className={styles.charts}>
                                 <div className={styles.gaugeChart}>
                                     <GaugeChart finance={finance}/>
                                 </div>
+                            </div>
 
+
+                            <div className={styles.charts}>
                                 <div className={styles.barChart}>
                                     <BarChart finance={finance} />
                                 </div>
-
                             </div>
+
                         </div>
 
 
@@ -503,7 +508,7 @@ export default function ForecastDash() {
                     </div>
                 </section>
             )}
-        </>
+        </div>
   )
 }
 

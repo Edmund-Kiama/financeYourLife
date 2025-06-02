@@ -1,0 +1,39 @@
+.spenders {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.spenders  .add {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+.spenders  .add input, 
+.spenders  .button {
+    transition: 0.3s ease;
+}
+.spenders  .button {
+    cursor: pointer;
+}
+.spenders  .add input:hover{
+    transform: scale(1.07);
+} 
+.spenders  .button:hover {
+    transform: scale(1.2);
+}
+.spenders  tbody th {
+    font-weight: 100;
+}
+.spenders  thead th {
+    font-size: large;
+}
+
+.spenders  th{
+    text-align: center;
+    padding: 0.5em;
+    padding-right: 3em;
+}

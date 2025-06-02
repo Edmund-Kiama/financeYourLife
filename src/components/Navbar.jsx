@@ -16,7 +16,7 @@ const NavBar = () => {
 
     const [openDrawer, setOpenDrawer] = useState(false)
     return (
-        <>
+        <div className={styles.mainNav}>
             <nav className={styles.navbar}>
                 <div className={styles.logo}>
                     <img src="https://cdn-icons-png.flaticon.com/128/61/61584.png"  className={styles.iconLogo}/>
@@ -69,7 +69,7 @@ const NavBar = () => {
 
             </div>
             )}
-        </>
+        </div>
     )
 }
 export default NavBar

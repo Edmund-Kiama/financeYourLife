@@ -1,99 +1,100 @@
-.mainContainer {
+.checksins .mainContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: aqua;
 }
-.topContainer {
+.checksins .topContainer {
     /* background-color: red; */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.topContainer ul {
+.checksins .topContainer ul {
     list-style: none;
 }
-.topContainer li div p {
+.checksins .topContainer li div p {
     width: 150px;
     text-align: center;
 }
-.topContainer li div {
+.checksins .topContainer li div {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1em;
 }
-.topContainer .input {
+.checksins .topContainer .input {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 150px;
+    flex-direction: row;
+    width: 190px;
 }
-.topContainer input {
+.checksins .topContainer input {
     width: 100px;
     text-align: center;
+    display: flex;
 }
-.topContainer .input button {
+.checksins .topContainer .input button {
     border: none;
     transition: 0.3s ease;
     cursor: pointer;
     margin-left: 3px;
 }
-.topContainer .input button:hover{
+.checksins .topContainer .input button:hover{
     transform: scale(1.2);
 }
-.add {
+.checksins .add {
     cursor: pointer;
     transition: 0.3s ease;
     margin-left: 2px;
     margin-right: 2px;
 }
-.add:hover{
+.checksins .add:hover{
     transform: scale(1.05);
 }
-.midContainer {
+.checksins .midContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.midContainer ul {
+.checksins .midContainer ul {
     list-style: none;
 }
-.midContainer ul li {
+.checksins .midContainer ul li {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1em;
 }
-.midContainer .inputs {
+.checksins .midContainer .inputs {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.midContainer input {
+.checksins .midContainer input {
     padding: 0.2em;
     padding-left: 1em;
     border: 1px solid black;
 }
 
-.bottomContainer {
+.checksins .bottomContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.bottomContainer ol li {
+.checksins .bottomContainer ol li {
     margin: 0.5em;
 }
-.bottomContainer div {
+.checksins .bottomContainer div {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.bottomContainer input {
+.checksins .bottomContainer input {
     padding: 0.2em;
     padding-left: 1em;
     border-top-left-radius: 5px;

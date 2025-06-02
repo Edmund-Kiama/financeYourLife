@@ -16,9 +16,9 @@ export default function MonthlyCheckIns() {
 
     return (
         <>
-            <main>
+            <main className={styles.checksins}>
                 <Navbar />
-                <section className={styles.mainContianer}>
+                <section className={styles.mainContainer}>
                     <section className={styles.topContainer}>
                         <h2>June Check-In</h2>
                         <p>pie chart</p>

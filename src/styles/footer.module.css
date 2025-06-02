@@ -1,6 +1,8 @@
-.footer {
+.mainFooter {
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
     width: 100vw;
-    height: 5em;
+    height: 4em;
     bottom: 0;
+    text-align: center;
+    padding-top: 1em;
 }
