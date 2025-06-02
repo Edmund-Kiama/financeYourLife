@@ -37,3 +37,9 @@
     padding: 0.5em;
     padding-right: 3em;
 }
+.spenders ol li {
+    margin-bottom: 1em;
+}
+.spenders h2{
+    margin-top: 2em;
+}
