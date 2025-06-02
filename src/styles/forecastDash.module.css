@@ -132,6 +132,13 @@
     padding: 1em;
 } 
 
+.current input {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.164);
+    padding: 0.2em;
+    border-radius: 5px;
+}
+
 .current p {
     /* width: 10em; */
     margin-left: 1em;

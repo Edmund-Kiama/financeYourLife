@@ -1,0 +1,104 @@
+.mainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: aqua;
+}
+.topContainer {
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.topContainer ul {
+    list-style: none;
+}
+.topContainer li div p {
+    width: 150px;
+    text-align: center;
+}
+.topContainer li div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+.topContainer .input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+}
+.topContainer input {
+    width: 100px;
+    text-align: center;
+}
+.topContainer .input button {
+    border: none;
+    transition: 0.3s ease;
+    cursor: pointer;
+    margin-left: 3px;
+}
+.topContainer .input button:hover{
+    transform: scale(1.2);
+}
+.add {
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+.add:hover{
+    transform: scale(1.05);
+}
+.midContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.midContainer ul {
+    list-style: none;
+}
+.midContainer ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+.midContainer .inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.midContainer input {
+    padding: 0.2em;
+    padding-left: 1em;
+    border: 1px solid black;
+}
+
+.bottomContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.bottomContainer ol li {
+    margin: 0.5em;
+}
+.bottomContainer div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bottomContainer input {
+    padding: 0.2em;
+    padding-left: 1em;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid black;
+}
+
+
