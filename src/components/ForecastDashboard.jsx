@@ -20,7 +20,7 @@ export default function ForecastDash() {
     const [finance, setFinance] = useState(() => {
         const stored = localStorage.getItem("finance")
         return stored ? JSON.parse(stored) : defaultFinance
-    })
+    }) 
 
     const [targetIncome, setTargetIncome] = useState(() => {
         const stored = localStorage.getItem("targetIncome")
@@ -204,8 +204,8 @@ export default function ForecastDash() {
             description: addExpenseDescri,
             amount: parseInt(addExpenseAmount)
         }
-        setAddIncomeAmount("")
-        setAddIncomeDescri("")
+        setAddExpenseAmount("")
+        setAddExpenseDescri("")
 
         let updated = {
             ...monthData,

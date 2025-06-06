@@ -101,5 +101,13 @@
     border-bottom-left-radius: 5px;
     border: 1px solid black;
 }
+.checksins .deleteb {
+    width: 1px;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+.checksins .expenseli:hover .deleteb {
+    width: 35px;
+}
 
 
