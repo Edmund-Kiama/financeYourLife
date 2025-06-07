@@ -171,7 +171,7 @@ export default function MonthlyCheckIns() {
                 <Navbar />
                 <section className={styles.mainContainer}>
                     <section className={styles.topContainer}>
-                        <h2>June Check-In</h2>
+                        <h2>{finance[month].month} Check-In</h2>
                         <p>pie chart</p>
                         <ul>
                             <li>
@@ -283,7 +283,7 @@ export default function MonthlyCheckIns() {
                 </section>
 
                 <section className={styles.bottomContainer}>
-                    <h2>Current Goals</h2>
+                    <h2>{finance[month].month} Goals</h2>
                     <div>
                         <input 
                             type="text" 

@@ -1,3 +1,85 @@
+.goalSection .contentBlur {
+    filter: blur(4px);
+    pointer-events: none;
+}
+
+.goalSection .popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+.goalSection .popup {
+    background: white;
+    border-radius: 8px;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 3em;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.goalSection .popup .headers {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.goalSection .popup .headers .iconClose {
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+.goalSection .popup .headers .iconClose:hover {
+    transform: scale(1.1);
+}
+.goalSection .popup .formDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: start; */
+}
+.goalSection {
+    /* background-color: red; */
+}
+.goalSection .formDetails div {
+    width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.goalSection .formDetails input {
+    width: 180px;
+    padding: 0.2em;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.494);
+}
+
+.goalSection .formDetails button{
+    margin-top: 1em;
+    width: 20%;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 0.6em;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.goalSection .formDetails button:hover {
+    background-color:black;
+    color: white;
+    transform: scale(1.1);
+}
+
+
 .goalSection {
     display: flex;
     align-items: center;
@@ -60,10 +142,26 @@
     color: white;
     transform: scale(1.1);
 }
+.goalSection .button {
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+.goalSection .button:hover {
+    transform: scale(1.1);
+}
 .goalSection .goals {
     width: 70vw; 
     margin: 0;
-
+}
+.goalSection section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.goalSection .goalsHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .goalSection ul {
     list-style: none;
