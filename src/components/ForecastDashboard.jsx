@@ -231,7 +231,7 @@ export default function ForecastDash() {
             const month = prev[monthData.month.toLowerCase()];
             updatedMonth = {
               ...month,
-              income: month.income.filter((_, i) => i !== index)
+              income: month.income.filter((cost, idx) => idx !== index)
             };
 
             setMonthData(updatedMonth)
@@ -252,7 +252,7 @@ export default function ForecastDash() {
             const month = prev[monthData.month.toLowerCase()];
             updatedMonth = {
               ...month,
-              expense: month.expense.filter((_, i) => i !== index)
+              expense: month.expense.filter((cost, idx) => idx !== index)
             };
 
             setMonthData(updatedMonth)

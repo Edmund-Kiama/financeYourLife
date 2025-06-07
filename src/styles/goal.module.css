@@ -53,7 +53,7 @@
 }
 .goalSection input:hover,
 .goalSection textarea:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 .goalSection button:hover {
     background-color:black;
@@ -78,7 +78,11 @@
     padding: 1em;
     width: 25%;
     border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.141);
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+}
+.goalSection li:hover{
+    background-color: rgba(0, 0, 0, 0.12);
 }
 @media (max-width: 813px) {
     .goalSection li {
@@ -94,13 +98,20 @@
     align-items: center;
     justify-content: space-between;
 }
-.goalSection li h4 {
-    font-weight: 100;
-    text-align: center;
-    width: 7em;
-}
 .goalSection .actionPlan p, 
 .goalSection .shortComings p {
     width: 100%;
+}
+.goalSection .delete{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.goalSection .deleteButton{
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.goalSection .deleteButton:hover{
+    transform: scale(1.5);
 }
 
